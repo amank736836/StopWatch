@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div{
+            width: 50%;
+            margin: 0 auto;
+            text-align: center;
+            font-size: 100px;
+        }
+        body {
+            background-color: black;
+            color: white;
+        }
+        #lap {
+            margin-right: 200px;
+        }
+        #lap,#start{
+            font-size: 25px;
+        }
+        p{
+            text-align: center;
+            font-size: 30px;
+        }
+
+    </style>
+</head>
+<body>
+    <div>
+        <span id="hh">00</span>:<span id="mm">00</span>:<span id="ss">00</span>
+    </div>
+    <div class="button">
+        <button id="lap" onclick="lap()" >Lap</button> <button id="start" onclick="start()">Start</button> 
+    </div>
+    <script>
+        var hour=0;
+        var min=0;
+        var sec=0;
+        function startWatch() {
+            var hh = document.getElementById("hh");
+            var mm = document.getElementById("mm");
+            var ss = document.getElementById("ss");
+            sec++;
+            // update min and sec values for each hour and minute
+            if(sec>59){
+                sec=0;
+                min++;
+            }
+            if(min>59){
+                min=0;
+                hour++;
+            }
+            if(hour>23){
+                hour=0;
+            }
+
+            // output the current time
+            if(hour<10){
+                hh.innerText = "0"+hour;
+            }else{
+                hh.innerText = hour;
+            }
+            if(min<10){
+                mm.innerText = "0"+min;
+            }else{
+                mm.innerText = min;
+            }
+            if(sec<10){
+                ss.innerText = "0"+sec;
+            }else{
+                ss.innerText = sec;
+            }
+            
+        }
+        function start(){
+            var start=document.getElementById("start");
+            if(start.innerText==="Start"){
+                start.innerText="Stop";
+                interval = setInterval(startWatch,1000);
+            }else{
+                clearInterval(interval);
+                start.innerText="Start";
+                hour=0;
+                min=0;
+                sec=0;
+                ss.innerText= "00";
+                mm.innerText= "00";
+                hh.innerText= "00";
+                var pElements = document.querySelectorAll("p"); 
+                for (var i = 0; i < pElements.length; i++) {
+                    var elem = pElements[i]; 
+                    elem.remove();
+                }
+            }
+        }
+        function lap(){
+            var p=document.createElement("p");
+            var hour2;
+            var min2;
+            var sec2;
+            if(hour<10){
+                hour2 = "0"+hour;
+            }else{
+                hour2 = hour;
+            }
+            if(min<10){
+                min2 = "0"+min;
+            }else{
+                min2 = min;
+            }
+            if(sec<10){
+                sec2 = "0"+sec;
+            }else{
+                sec2 = sec;
+            }
+            p.innerText=hour2+":"+min2+":"+sec2;
+
+            document.body.appendChild(p);
+        }
+        
+    </script>
+</body>
+</html>
